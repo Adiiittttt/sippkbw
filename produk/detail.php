@@ -58,6 +58,6 @@ if (!$product) {
 <?php include '../includes/footer.php'; ?>
 
 <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/js/custom.js"></script>
+<!-- <script src="/assets/js/custom.js"></script> -->
 </body>
 </html>
