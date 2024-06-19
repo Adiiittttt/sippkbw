@@ -246,7 +246,7 @@ function getCategoryById($id)
 
     $id = mysqli_real_escape_string($conn, $id);
 
-    $query = "SELECT * FROM kategori WHERE id = '$id'";
+    $query = "SELECT * FROM kategori WHERE IDkategori = '$id'";
     $result = mysqli_query($conn, $query);
 
     if ($result && mysqli_num_rows($result) > 0) {
