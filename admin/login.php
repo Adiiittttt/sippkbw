@@ -31,7 +31,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/sippkbw/includes/functions.php';
             <div class="alert alert-danger" role="alert">
                 <?php echo $error; ?>
             </div>
-        <?php } ?>
+        <?php }  ?>
         <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <div class="form-group">
                 <label for="username">Username</label>

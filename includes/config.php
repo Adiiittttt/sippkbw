@@ -22,7 +22,7 @@ mysqli_set_charset($conn, "utf8");
 define('BASE_URL', '/sippkbw'); // Sesuaikan dengan path instalasi Anda
 
 // Konfigurasi umum
-define('SITE_NAME', 'Komputer Store');
+define('SITE_NAME', 'Computer Store & repair Solution');
 define('ADMIN_EMAIL', 'admin@komputerstore.com');
 
 // Zona waktu

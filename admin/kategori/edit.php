@@ -9,7 +9,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/sippkbw/includes/config.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/sippkbw/includes/functions.php';
 
 $id = $_GET['id'];
-$category = getCategoryById($id);
+$category = getCategory($id);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama = $_POST['namakategori'];
@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) . '?id=' . $id; ?>">
             <div class="form-group">
                 <label for="nama">Nama Kategori</label>
-                <input type="text" class="form-control" id="nama" name="nama" value="<?php echo $category['namakategori']; ?>" required>
+                <input type="text" class="form-control" id="namakategori" name="namakategori" value="<?php echo $category['namakategori']; ?>" required>
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>

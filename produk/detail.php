@@ -48,7 +48,7 @@ if (!$product) {
                 <p class="lead"><?php echo htmlspecialchars($product['deskripsi']); ?></p>
                 <p><strong>Harga:</strong> Rp <?php echo number_format($product['harga'], 0, ',', '.'); ?></p>
                 <p><strong>Stok:</strong> <?php echo $product['stok']; ?> unit</p>
-                <a href="https://shopee.co.id/LAPTOP-ASUS-VIVOBOOK-GO-14-E1404FA-RYZEN-3-7320U-8GB-256GB-512GB-W11-OHS-14.0-FHD-BLK-i.78730497.18807428103" class="btn btn-primary btn-lg">Beli Sekarang</a>
+                <a href="" class="btn btn-primary btn-lg">Beli Sekarang</a>
                 <a href="../produk/" class="btn btn-secondary btn-lg">Kembali ke Daftar Produk</a>
             </div>
         </div>

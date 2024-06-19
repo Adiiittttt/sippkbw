@@ -1,7 +1,14 @@
 <?php
 session_start();
-unset($_SESSION['sesi']);
-unset($_SESSION['IDadmin']);
+
+// Hapus semua data sesi
+session_unset();
 session_destroy();
-header("Location:../index.php");
+
+// Tampilkan alert sebelum redirect
+echo '<script>
+        alert("Anda telah logout.");
+        window.location.href = "../index.php";
+      </script>';
+exit;
 ?>

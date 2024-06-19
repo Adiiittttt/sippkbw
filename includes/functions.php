@@ -1,5 +1,4 @@
 <?php
-// functions.php
 
 // Pastikan file ini hanya dijalankan dalam konteks yang benar
 if (!defined('DB_HOST')) {
@@ -113,8 +112,6 @@ function formatRupiah($angka) {
     $hasil_rupiah = "Rp " . number_format($angka, 0, ',', '.');
     return $hasil_rupiah;
 }
-
-
 /**
  * Fungsi untuk mengambil semua kategori
  * 
@@ -239,18 +236,15 @@ function addCategory($nama)
     }
 }
 
-// Fungsi untuk mendapatkan kategori berdasarkan ID
-function getCategoryById($id)
-{
+// Fungsi untuk mendapatkan kategori 
+
+function getCategory($id) {
     global $conn;
+    $sql = "SELECT * FROM kategori WHERE IDkategori = $id";
+    $result = $conn->query($sql);
 
-    $id = mysqli_real_escape_string($conn, $id);
-
-    $query = "SELECT * FROM kategori WHERE IDkategori = '$id'";
-    $result = mysqli_query($conn, $query);
-
-    if ($result && mysqli_num_rows($result) > 0) {
-        return mysqli_fetch_assoc($result);
+    if ($result->num_rows > 0) {
+        return $result->fetch_assoc();
     } else {
         return null;
     }
@@ -264,7 +258,7 @@ function updateCategory($id, $nama)
     $id = mysqli_real_escape_string($conn, $id);
     $nama = mysqli_real_escape_string($conn, $nama);
 
-    $query = "UPDATE kategori SET nama = '$nama' WHERE id = '$id'";
+    $query = "UPDATE kategori SET namakategori = '$nama' WHERE IDkategori = '$id'";
 
     if (mysqli_query($conn, $query)) {
         return true;

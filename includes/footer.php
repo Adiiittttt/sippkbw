@@ -20,8 +20,8 @@
             <div class="col-md-4">
                 <h5>Kontak</h5>
                 <address>
-                    Jl. Contoh No. 123<br>
-                    Kota Contoh, 12345<br>
+                    Jl.kenangan bersama No. 02<br>
+                    Kota banjarmasin, 70654<br>
                     Indonesia<br>
                     <br>
                     Email: info@komputerstore.com<br>
@@ -34,12 +34,7 @@
             <div class="col-md-6">
                 <p>&copy; <?php echo date('Y'); ?> <?php echo SITE_NAME; ?>. All rights reserved.</p>
             </div>
-            <div class="col-md-6 text-md-end">
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a href="/kebijakan-privasi.php">Kebijakan Privasi</a></li>
-                    <li class="list-inline-item"><a href="/syarat-dan-ketentuan.php">Syarat dan Ketentuan</a></li>
-                </ul>
-            </div>
+            
         </div>
     </div>
 </footer>

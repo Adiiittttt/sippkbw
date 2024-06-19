@@ -51,7 +51,7 @@ if (!defined('SITE_NAME')) {
                             </li>
                         <?php else: ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="admin/login.php">Login</a>
+                                <a class="nav-link" href="../admin/login.php">Login</a>
                             </li>
                         <?php endif; ?>
                     </ul>

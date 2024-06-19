@@ -16,7 +16,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/sippkbw/includes/functions.php';
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand">Komputer Store</a>
+        <a class="navbar-brand">Computer Store & repair Solution</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -45,7 +45,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/sippkbw/includes/functions.php';
 <main class="container my-5">
     <div class="row">
         <div class="col-md-8">
-            <h1 class="mb-4">Selamat Datang di Komputer Store</h1>
+            <h1 class="mb-4">Selamat Datang di Computer Store & repair Solution</h1>
             <p class="lead">Kami menyediakan layanan penjualan dan perbaikan komputer terbaik untuk Anda.</p>
             
             <h2 class="mt-5 mb-3">Produk Unggulan</h2>
@@ -86,7 +86,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/sippkbw/includes/functions.php';
 
 <footer class="bg-light py-4 mt-5">
     <div class="container text-center">
-        <p>&copy; 2024 Komputer Store. Hak Cipta Dilindungi.</p>
+        <p>&copy; 2024 Computer Store & repair Solution. Hak Cipta Dilindungi.</p>
     </div>
 </footer>
 
