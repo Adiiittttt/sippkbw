@@ -45,3 +45,4 @@ function debug_mode() {
 
 // Panggil fungsi debug_mode
 debug_mode();
+

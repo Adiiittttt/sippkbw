@@ -41,7 +41,7 @@ if (!$product) {
     <?php elseif ($product): ?>
         <div class="row">
             <div class="col-md-6">
-                <img src="<?php echo htmlspecialchars($product['gambar']); ?>" class="img-fluid" alt="<?php echo htmlspecialchars($product['nama']); ?>">
+            <img src="<?php echo BASE_URL . '../assets/images/' . $product['gambar']; ?>" class="img-fluid" alt="<?php echo $produk['nama']; ?>">
             </div>
             <div class="col-md-6">
                 <h1 class="mb-4"><?php echo htmlspecialchars($product['nama']); ?></h1>
@@ -49,7 +49,7 @@ if (!$product) {
                 <p><strong>Harga:</strong> Rp <?php echo number_format($product['harga'], 0, ',', '.'); ?></p>
                 <p><strong>Stok:</strong> <?php echo $product['stok']; ?> unit</p>
                 <a href="https://shopee.co.id/LAPTOP-ASUS-VIVOBOOK-GO-14-E1404FA-RYZEN-3-7320U-8GB-256GB-512GB-W11-OHS-14.0-FHD-BLK-i.78730497.18807428103" class="btn btn-primary btn-lg">Beli Sekarang</a>
-                <a href="/produk/" class="btn btn-secondary btn-lg">Kembali ke Daftar Produk</a>
+                <a href="../produk/" class="btn btn-secondary btn-lg">Kembali ke Daftar Produk</a>
             </div>
         </div>
     <?php endif; ?>

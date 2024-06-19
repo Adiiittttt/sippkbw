@@ -5,38 +5,122 @@
 if (!defined('DB_HOST')) {
     exit('Akses langsung ke file ini tidak diizinkan.');
 }
+// Fungsi untuk login admin
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-/**
- * Fungsi untuk mengambil produk unggulan
- * 
- * @param int $limit Jumlah produk yang akan diambil
- * @return array Array dari produk unggulan
- */
-function get_featured_products($limit = 3) {
-    global $conn;
-    $products = [];
+    $query = "SELECT * FROM admin WHERE username = '$username' AND password = '$password'";
+    $result = $conn->query($query);
 
-    // Mengambil produk berdasarkan kriteria lain, misalnya yang terbaru
-    $sql = "SELECT * FROM produk ORDER BY IDproduk DESC LIMIT ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "i", $limit);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-
-    while ($row = mysqli_fetch_assoc($result)) {
-        $products[] = $row;
+    if ($result->num_rows > 0) {
+        $_SESSION['admin'] = true;
+        header('Location: dashboard.php');
+        exit;
+    } else {
+        $error = "Username atau password salah";
     }
+}
 
-    mysqli_stmt_close($stmt);
+// Fungsi untuk logout admin
+if (isset($_GET['logout'])) {
+    unset($_SESSION['admin']);
+    session_destroy();
+    header('Location: index.php');
+    exit;
+}
+
+function get_featured_products($limit) {
+    global $conn;
+    $sql = "SELECT * FROM produk ORDER BY RAND() LIMIT $limit";
+    $result = $conn->query($sql);
+    $products = array();
+    
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $products[] = array(
+                'IDproduk' => $row['IDproduk'],
+                'nama' => $row['nama'],
+                'deskripsi' => $row['deskripsi'],
+                'harga' => $row['harga'],
+                'gambar' => BASE_URL . '/assets/images/' . $row['gambar']
+            );
+        }
+    }
+    
     return $products;
 }
+
+
+function getRepairServices() {
+    global $conn;
+    $services = array();
+
+    $query = "SELECT 
+        IDperbaikan, 
+        jenis_perangkat, 
+        nama_pelanggan, 
+        no_telp, 
+        email,
+        deskripsi_masalah, 
+        tanggal_masuk, 
+        tanggal_selesai, 
+        biaya, 
+        status, 
+        catatan
+    FROM perbaikan 
+    ORDER BY tanggal_masuk DESC";
+
+    $result = mysqli_query($conn, $query);
+
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $services[] = $row;
+        }
+        mysqli_free_result($result);
+    } else {
+        error_log("Database query failed: " . mysqli_error($conn));
+    }
+
+    return $services;
+}
+function addProduct($nama, $deskripsi, $harga, $kategori, $stok, $gambar) {
+    global $conn;
+    $sql = "INSERT INTO produk (nama, deskripsi, harga, IDkategori, stok, gambar) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssdiis", $nama, $deskripsi, $harga, $kategori, $stok, $gambar);
+    return $stmt->execute();
+}
+
+function getAllProducts() {
+    global $conn; // Asumsikan $conn adalah variabel koneksi database yang sudah didefinisikan di config.php
+    
+    $products = array();
+    
+    $query = "SELECT * FROM produk ORDER BY IDproduk DESC";
+    $result = mysqli_query($conn, $query);
+    
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $products[] = $row;
+        }
+        mysqli_free_result($result);
+    }
+    
+    return $products;
+}
+function formatRupiah($angka) {
+    $hasil_rupiah = "Rp " . number_format($angka, 0, ',', '.');
+    return $hasil_rupiah;
+}
+
 
 /**
  * Fungsi untuk mengambil semua kategori
  * 
  * @return array Array dari kategori
  */
-function get_all_categories() {
+function getallcategories() {
     global $conn;
     $categories = [];
 
@@ -61,9 +145,16 @@ function get_products_by_category($IDkategori, $limit = 10) {
     global $conn;
     $products = [];
 
-    $sql = "SELECT * FROM produk WHERE IDkategori = ? LIMIT ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "ii", $IDkategori, $limit);
+    if ($IDkategori == 0) {
+        $sql = "SELECT * FROM produk LIMIT ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $limit);
+    } else {
+        $sql = "SELECT * FROM produk WHERE IDkategori = ? LIMIT ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "ii", $IDkategori, $limit);
+    }
+
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
@@ -73,6 +164,38 @@ function get_products_by_category($IDkategori, $limit = 10) {
 
     mysqli_stmt_close($stmt);
     return $products;
+}
+
+function updateProduct($id, $nama, $deskripsi, $harga, $stok, $gambar, $IDkategori)
+{
+    global $conn; // Menggunakan koneksi mysqli
+
+    // Mempersiapkan nilai untuk disisipkan ke dalam query
+    $id = mysqli_real_escape_string($conn, $id);
+    $nama = mysqli_real_escape_string($conn, $nama);
+    $deskripsi = mysqli_real_escape_string($conn, $deskripsi);
+    $harga = mysqli_real_escape_string($conn, $harga);
+    $stok = mysqli_real_escape_string($conn, $stok);
+    $gambar = mysqli_real_escape_string($conn, $gambar);
+    $IDkategori = mysqli_real_escape_string($conn, $IDkategori);
+
+    // Query UPDATE
+    $query = "UPDATE produk SET
+                nama = '$nama',
+                deskripsi = '$deskripsi',
+                harga = '$harga',
+                stok = '$stok',
+                gambar = '$gambar',
+                IDkategori = '$IDkategori'
+              WHERE IDproduk = $id";
+
+    // Mengeksekusi query
+    if (mysqli_query($conn, $query)) {
+        return true;
+    } else {
+        echo "Error: " . mysqli_error($conn);
+        return false;
+    }
 }
 /**
  * Fungsi untuk mengambil detail produk berdasarkan ID
@@ -98,6 +221,76 @@ function get_product_by_id($id) {
     }
 }
 
+
+// Fungsi untuk menambah kategori baru
+function addCategory($nama)
+{
+    global $conn;
+
+    $nama = mysqli_real_escape_string($conn, $nama);
+
+    $query = "INSERT INTO kategori (namakategori) VALUES ('$nama')";
+
+    if (mysqli_query($conn, $query)) {
+        return true;
+    } else {
+        echo "Error: " . mysqli_error($conn);
+        return false;
+    }
+}
+
+// Fungsi untuk mendapatkan kategori berdasarkan ID
+function getCategoryById($id)
+{
+    global $conn;
+
+    $id = mysqli_real_escape_string($conn, $id);
+
+    $query = "SELECT * FROM kategori WHERE id = '$id'";
+    $result = mysqli_query($conn, $query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        return mysqli_fetch_assoc($result);
+    } else {
+        return null;
+    }
+}
+
+// Fungsi untuk memperbarui kategori
+function updateCategory($id, $nama)
+{
+    global $conn;
+
+    $id = mysqli_real_escape_string($conn, $id);
+    $nama = mysqli_real_escape_string($conn, $nama);
+
+    $query = "UPDATE kategori SET nama = '$nama' WHERE id = '$id'";
+
+    if (mysqli_query($conn, $query)) {
+        return true;
+    } else {
+        echo "Error: " . mysqli_error($conn);
+        return false;
+    }
+}
+
+// Fungsi untuk menghapus kategori
+function deleteCategory($id)
+{
+    global $conn;
+
+    $id = mysqli_real_escape_string($conn, $id);
+
+    $query = "DELETE FROM kategori WHERE id = '$id'";
+
+    if (mysqli_query($conn, $query)) {
+        return true;
+    } else {
+        echo "Error: " . mysqli_error($conn);
+        return false;
+    }
+}
+
 /**
  * Fungsi untuk mengambil detail layanan perbaikan berdasarkan ID
  * 
@@ -106,21 +299,16 @@ function get_product_by_id($id) {
  */
 function get_repair_service_by_id($id) {
     global $conn;
-    
-    $id = intval($id);  // Pastikan ID adalah integer
-    
-    $sql = "SELECT * FROM perbaikan WHERE IDperbaikan = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "i", $id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    
-    if ($row = mysqli_fetch_assoc($result)) {
-        return $row;
+    $sql = "SELECT * FROM perbaikan WHERE IDperbaikan = $id";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        return $result->fetch_assoc();
     } else {
-        return false;
+        return null;
     }
 }
+
 
 /**
  * Fungsi untuk menambahkan permintaan perbaikan baru

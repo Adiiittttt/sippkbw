@@ -26,16 +26,16 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/sippkbw/includes/functions.php';
                     <a class="nav-link active" aria-current="page" href="index.php">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/produk/">Produk</a>
+                    <a class="nav-link" href="produk/">Produk</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/perbaikan/">Perbaikan</a>
+                    <a class="nav-link" href="<?php echo BASE_URL; ?>/perbaikan/form.php?service=<?php ['IDperbaikan']; ?>">Perbaikan</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/kontak.php">Kontak</a>
+                    <a class="nav-link" href="tentang-kami.php">Tentang Kami</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/tentang-kami.php">Tentang Kami</a>
+                    <a class="nav-link" href="admin/login.php">Login</a>
                 </li>
             </ul>
         </div>
