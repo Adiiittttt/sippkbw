@@ -9,15 +9,6 @@
                 <p>Menyediakan layanan penjualan dan perbaikan komputer terbaik untuk Anda.</p>
             </div>
             <div class="col-md-4">
-                <h5>Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="index.php">Beranda</a></li>
-                    <li><a href="../produk/index.php">Produk</a></li>
-                    <li><a  href="<?php echo BASE_URL; ?>/perbaikan/form.php?service=<?php ['IDperbaikan']; ?>">Perbaikan</a></li>
-                    <li><a href="../tentang-kami.php">Tentang Kami</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
                 <h5>Kontak</h5>
                 <address>
                     Jl.kenangan bersama No. 02<br>

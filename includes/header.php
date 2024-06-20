@@ -39,7 +39,7 @@ if (!defined('SITE_NAME')) {
                              <a class="nav-link" href="<?php echo BASE_URL; ?>/perbaikan/form.php?service=">Perbaikan</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../tentang-kami.php">Tentang Kami</a>
+                            <a <a class="nav-link" href="<?php echo BASE_URL; ?>/tentang-kami.php"> Tentang Kami </a>
                         </li>
                         
                         <?php if (isset($_SESSION['IDuser'])): ?>
@@ -51,7 +51,7 @@ if (!defined('SITE_NAME')) {
                             </li>
                         <?php else: ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="../admin/login.php">Login</a>
+                                <a <a class="nav-link" href="<?php echo BASE_URL; ?>/admin/login.php"> Login </a>
                             </li>
                         <?php endif; ?>
                     </ul>
