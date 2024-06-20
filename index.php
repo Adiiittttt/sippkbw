@@ -79,7 +79,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/sippkbw/includes/functions.php';
                 <li class="list-group-item">Instalasi Software</li>
             </ul>
             
-            <a href="<?php echo BASE_URL; ?>/perbaikan/form.php?service=<?php ['IDperbaikan']; ?>" class="btn btn-primary">Ajukan Perbaikan</a>
+            <a href="<?php echo BASE_URL; ?>/perbaikan/form.php?service=<?php ['IDperbaikan']; ?>" class="btn btn-primary mt-1">Ajukan Perbaikan</a>
         </div>
     </div>
 </main>

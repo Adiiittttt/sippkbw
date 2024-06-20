@@ -42,7 +42,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/sippkbw/includes/functions.php';
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
             <div class="form-group text-center">
-                <button type="submit" name="login" class="btn btn-primary">Login</button>
+                <button type="submit" name="login" class="btn btn-primary mt-3">Login</button>
             </div>
         </form>
     </div>
